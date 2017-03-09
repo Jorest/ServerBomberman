@@ -24,15 +24,8 @@ public class ServerUDP {
     DatagramSocket socket;
     DatagramPacket entrada;
     ColaUDP cola;
-    Estado estado;
+    
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
     int max_jugadores = 4;
     
     /**
@@ -41,7 +34,7 @@ public class ServerUDP {
     public ServerUDP() throws IOException{
         int puerto = 4001;
         
-        estado = new Estado();
+        
         
         byte [] datos_entrada = new byte[1024];
         
@@ -54,7 +47,7 @@ public class ServerUDP {
         for(int i=0; i<max_jugadores; i++){
             DatagramSocket socket1 = new DatagramSocket(puerto);
             
-            RequestServerUDP request = new RequestServerUDP(cola, estado, socket1);
+            RequestServerUDP request = new RequestServerUDP(cola, socket1);
             
             Thread thread = new Thread(request);
             thread.start();

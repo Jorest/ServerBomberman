@@ -34,9 +34,9 @@ final class RequestServerUDP implements Runnable {
         this.cola=cola; 
     }
     
-    public RequestServerUDP(ColaUDP cola, Estado estado, DatagramSocket socket) {
+    public RequestServerUDP(ColaUDP cola, DatagramSocket socket) {
         this.cola = cola; 
-        this.estado =  estado;
+       
         this.socket = socket;
         
     }
@@ -85,7 +85,7 @@ final class RequestServerUDP implements Runnable {
                     String recibido = new String(datos_entrada).trim();
                     EstadoClient estado_recibido = gson.fromJson(recibido, EstadoClient.class);
                     
-                    
+                    cola.updateEstado(estado_recibido);
                     
                     //respuesta
 
@@ -94,7 +94,7 @@ final class RequestServerUDP implements Runnable {
                     //mandar estado unificado aqui
                     //String mensaje_salida = "putos";
                    
-                    String jsonInString = gson.toJson(estado);
+                    String jsonInString = gson.toJson(cola.getEstado());
 
 
                     datos_salida = jsonInString.getBytes();

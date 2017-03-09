@@ -18,10 +18,34 @@ public class ColaUDP {
     private final LinkedList cola;
     private int activos; 
     private final int cantThreads; 
+    Estado estado;
+    EstadoClient estado_cliente;
+
+    public EstadoClient getEstado_cliente() {
+        return estado_cliente;
+    }
+
+    public void setEstado_cliente(EstadoClient estado_cliente) {
+        this.estado_cliente = estado_cliente;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
     public ColaUDP(int canThreads) {
         cola= new LinkedList();
-        this.cantThreads=canThreads; 
+        this.cantThreads=canThreads;
+        Estado estado = new Estado();
+        EstadoClient estado_cliente = new EstadoClient();
+    }
+    
+    public void updateEstado(EstadoClient estado_cliente){
+        this.estado.setBombas(estado_cliente.getBombas());
     }
     
     public synchronized DatagramSocket get(){
