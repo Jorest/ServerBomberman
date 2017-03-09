@@ -25,6 +25,14 @@ public class ServerUDP {
     DatagramPacket entrada;
     ColaUDP cola;
     Estado estado;
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
     int max_jugadores = 4;
     
     /**
@@ -72,4 +80,6 @@ public class ServerUDP {
 
 
     }
+    
+    
 }

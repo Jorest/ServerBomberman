@@ -5,13 +5,8 @@
  */
 package serverbomberman;
 import com.google.gson.Gson;
-import java.io.*;
-import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -43,6 +38,7 @@ final class RequestServerUDP implements Runnable {
         this.cola = cola; 
         this.estado =  estado;
         this.socket = socket;
+        
     }
 
     public void setSocket(DatagramSocket socket) {
@@ -61,6 +57,7 @@ final class RequestServerUDP implements Runnable {
                 while(true){
                     Gson gson = new Gson();
                     System.out.println("chambeando");
+                    
                     byte [] datos_entrada = new byte[1024];
                     String respuesta = "";
                     String leido = "";
@@ -89,8 +86,8 @@ final class RequestServerUDP implements Runnable {
                     EstadoClient estado_recibido = gson.fromJson(recibido, EstadoClient.class);
                     
                     
-                    //respuesta
                     
+                    //respuesta
 
                     byte[] datos_salida = new byte[1024];
 
