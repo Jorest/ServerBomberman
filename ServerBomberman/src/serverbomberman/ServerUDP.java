@@ -32,7 +32,9 @@ public class ServerUDP {
      */
     public ServerUDP() throws IOException{
         int puerto = 4001;
+        
         estado = new Estado();
+        
         byte [] datos_entrada = new byte[1024];
         
         System.out.println("Servidor iniciando...");

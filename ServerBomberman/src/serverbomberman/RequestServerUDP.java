@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package serverbomberman;
+import com.google.gson.Gson;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -15,7 +16,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Calendar;
-
+;
 
 /**
  *
@@ -58,6 +59,7 @@ final class RequestServerUDP implements Runnable {
             }
             try{
                 while(true){
+                    Gson gson = new Gson();
                     System.out.println("chambeando");
                     byte [] datos_entrada = new byte[1024];
                     String respuesta = "";
@@ -75,25 +77,32 @@ final class RequestServerUDP implements Runnable {
                     
                     
                     socket.receive(entrada);
-                       System.out.println("hola");
+                       
                     //mandar a actualizar estado aqui
                     
                     int puerto = entrada.getPort();                 
                     InetAddress address = entrada.getAddress();
+                    
                     System.out.println("Conexión establecida. El cliente "+address+", puerto "+puerto+" dice: "+new String(datos_entrada).trim()+"hora: "+Calendar.getInstance().getTime()+"\n");
-
+                    
+                    String recibido = new String(datos_entrada).trim();
+                    EstadoClient estado_recibido = gson.fromJson(recibido, EstadoClient.class);
+                    
+                    
                     //respuesta
                     
 
                     byte[] datos_salida = new byte[1024];
 
                     //mandar estado unificado aqui
-                    String mensaje_salida = "putos";
+                    //String mensaje_salida = "putos";
+                   
+                    String jsonInString = gson.toJson(estado);
 
 
-                    datos_salida = mensaje_salida.getBytes();
+                    datos_salida = jsonInString.getBytes();
 
-                    DatagramPacket salida = new DatagramPacket(datos_salida, mensaje_salida.length(), address, puerto);
+                    DatagramPacket salida = new DatagramPacket(datos_salida, jsonInString.length(), address, puerto);
                     socket.send(salida);
                 }
                  
