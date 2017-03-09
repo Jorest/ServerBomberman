@@ -10,6 +10,7 @@ import java.util.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 ;
 
@@ -44,7 +45,14 @@ final class RequestServerUDP implements Runnable {
     public void setSocket(DatagramSocket socket) {
         this.socket = socket;
     }
-     
+    
+    public static String getCurrentTimeStamp() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
+    }
+    
     @Override
     public void run() { 
        while(true){
@@ -56,7 +64,7 @@ final class RequestServerUDP implements Runnable {
             try{
                 while(true){
                     Gson gson = new Gson();
-                    System.out.println("chambeando");
+                    System.out.println("chambeando"+"\n");
                     
                     byte [] datos_entrada = new byte[2048];
                     String respuesta = "";
@@ -80,7 +88,7 @@ final class RequestServerUDP implements Runnable {
                     int puerto = entrada.getPort();                 
                     InetAddress address = entrada.getAddress();
                     
-                    System.out.println("Conexión establecida. El cliente "+address+", puerto "+puerto+" dice: "+new String(datos_entrada).trim()+"hora: "+Calendar.getInstance().getTime()+"\n");
+                    System.out.println("Conexión establecida. El cliente "+address+", puerto "+puerto+" dice: "+new String(datos_entrada).trim()+"hora: "+getCurrentTimeStamp());
                     
                     String recibido = new String(datos_entrada).trim();
                     
@@ -103,7 +111,7 @@ final class RequestServerUDP implements Runnable {
                     
                     DatagramPacket salida = new DatagramPacket(datos_salida, jsonInString.length(), address, puerto);
                     socket.send(salida);
-                    System.out.println("Salida "+Calendar.getInstance().getTime()+": "+jsonInString);
+                    System.out.println("Salida "+getCurrentTimeStamp()+": "+jsonInString+"\n");
                 }
                  
                  
