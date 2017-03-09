@@ -44,9 +44,29 @@ public class ColaUDP {
         EstadoClient estado_cliente = new EstadoClient();
     }
     
+    //donde la magia ocurre
     public void updateEstado(EstadoClient estado_cliente){
         this.estado.setBombas(estado_cliente.getBombas());
+        int id_jug = estado_cliente.getJugador().getId();
+        
+        switch (id_jug){
+            case 1:
+                this.estado.jugadores[0] = estado_cliente.getJugador();
+                break;
+            case 2:
+                this.estado.jugadores[1] = estado_cliente.getJugador();
+                break;
+            case 3:
+                this.estado.jugadores[2] = estado_cliente.getJugador();
+                break;
+            case 4:
+                this.estado.jugadores[3] = estado_cliente.getJugador();
+                break;
+        }
+        
+        //this.estado.setJugadores(estado_cliente.getJugador());
     }
+    
     
     public synchronized DatagramSocket get(){
         if(cola.isEmpty()){

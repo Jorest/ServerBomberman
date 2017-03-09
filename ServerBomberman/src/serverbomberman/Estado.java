@@ -10,8 +10,8 @@ package serverbomberman;
  * @author lduarte
  */
 public class Estado {
-    private int tiempo=0; 
-    private int [][] tablero=new int[][]{
+    private int tiempo = 0; 
+    private int [][] tablero = new int[][]{
         { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0},
         { 0, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0},
         { 0, -1,  0, -1, -1,  0,  1, -1,  0, -1, -1,  0, -1, -1,  0, -1, -1,  0, -1, 0},
@@ -34,13 +34,21 @@ public class Estado {
         { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0}
         
     };
-    private Jugador [] jugadores; 
+    Jugador [] jugadores; 
     private Bomba [] bombas; 
     private Fire [] fires;
     private Poder [] poderes; 
 
     public Estado() {
         //tablero=new int [2--1][2--1];
+        Jugador jugador1 =  new Jugador(1, 1, 1);
+        Jugador jugador2 =  new Jugador(2, 18, 1);
+        Jugador jugador3 =  new Jugador(3, 1, 18);
+        Jugador jugador4 =  new Jugador(4, 18, 18);
+        jugadores[0] = jugador1;
+        jugadores[1] = jugador2;
+        jugadores[2] = jugador3;
+        jugadores[3] = jugador4;
     }
 
     public int getTiempo() {
@@ -67,6 +75,8 @@ public class Estado {
     public void setJugadores(Jugador[] jugadores) {
         this.jugadores = jugadores;
     }
+    
+  
 
     public Bomba[] getBombas() {
         return bombas;
