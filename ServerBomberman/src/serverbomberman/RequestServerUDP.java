@@ -58,7 +58,7 @@ final class RequestServerUDP implements Runnable {
                     Gson gson = new Gson();
                     System.out.println("chambeando");
                     
-                    byte [] datos_entrada = new byte[1024];
+                    byte [] datos_entrada = new byte[2048];
                     String respuesta = "";
                     String leido = "";
                     String leido_string = "";
@@ -83,13 +83,15 @@ final class RequestServerUDP implements Runnable {
                     System.out.println("Conexión establecida. El cliente "+address+", puerto "+puerto+" dice: "+new String(datos_entrada).trim()+"hora: "+Calendar.getInstance().getTime()+"\n");
                     
                     String recibido = new String(datos_entrada).trim();
+                    
+                    
                     EstadoClient estado_recibido = gson.fromJson(recibido, EstadoClient.class);
                     
                     cola.updateEstado(estado_recibido);
                     
                     //respuesta
-
-                    byte[] datos_salida = new byte[1024];
+                    
+                    byte[] datos_salida = new byte[2048];
 
                     //mandar estado unificado aqui
                     //String mensaje_salida = "putos";
@@ -98,9 +100,10 @@ final class RequestServerUDP implements Runnable {
 
 
                     datos_salida = jsonInString.getBytes();
-
+                    
                     DatagramPacket salida = new DatagramPacket(datos_salida, jsonInString.length(), address, puerto);
                     socket.send(salida);
+                    System.out.println("Salida "+Calendar.getInstance().getTime()+": "+jsonInString);
                 }
                  
                  

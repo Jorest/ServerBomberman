@@ -34,7 +34,7 @@ public class Estado {
         { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0}
         
     };
-    Jugador [] jugadores; 
+    Jugador [] jugadores = new Jugador[4]; 
     private Bomba [] bombas; 
     private Fire [] fires;
     private Poder [] poderes; 

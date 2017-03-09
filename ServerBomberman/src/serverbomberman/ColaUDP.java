@@ -40,13 +40,13 @@ public class ColaUDP {
     public ColaUDP(int canThreads) {
         cola= new LinkedList();
         this.cantThreads=canThreads;
-        Estado estado = new Estado();
+        estado = new Estado();
         EstadoClient estado_cliente = new EstadoClient();
     }
     
     //donde la magia ocurre
     public void updateEstado(EstadoClient estado_cliente){
-        this.estado.setBombas(estado_cliente.getBombas());
+        //this.estado.setBombas(estado_cliente.getBombas());
         int id_jug = estado_cliente.getJugador().getId();
         
         switch (id_jug){
@@ -64,7 +64,7 @@ public class ColaUDP {
                 break;
         }
         
-        //this.estado.setJugadores(estado_cliente.getJugador());
+        
     }
     
     
