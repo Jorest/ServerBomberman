@@ -51,7 +51,7 @@ public class ColaUDP {
     }
     
     public synchronized void put(DatagramSocket socket){
-        //System.out.println("Ingresando a cola");
+        System.out.println("Ingresando a cola");
         cola.add(socket);
         notify();
         if(activos==cantThreads && activos<cantThreads+2){

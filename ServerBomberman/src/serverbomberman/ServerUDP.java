@@ -31,32 +31,28 @@ public class ServerUDP {
      * @param args the command line arguments
      */
     public ServerUDP() throws IOException{
+        int puerto = 4001;
         estado = new Estado();
         byte [] datos_entrada = new byte[1024];
         
         System.out.println("Servidor iniciando...");
-        
-        socket = new DatagramSocket(4000);
-       
+           
         entrada = new DatagramPacket(datos_entrada, datos_entrada.length);
         
         cola = new ColaUDP(max_jugadores);
         
         for(int i=0; i<max_jugadores; i++){
-            RequestServerUDP request = new RequestServerUDP(cola, estado);
+            DatagramSocket socket1 = new DatagramSocket(puerto);
+            
+            RequestServerUDP request = new RequestServerUDP(cola, estado, socket1);
+            
             Thread thread = new Thread(request);
             thread.start();
+            cola.put(socket1);
             
+            puerto++;
         }
-        
-        while(true){
-            
-            //Socket socket = servidor.accept();
-            //socket.receive(entrada);
-            
-            cola.put(socket);
-            
-        }
+
         
     }
     

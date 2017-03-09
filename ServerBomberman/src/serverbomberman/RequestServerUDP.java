@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Calendar;
 
 
 /**
@@ -37,9 +38,10 @@ final class RequestServerUDP implements Runnable {
         this.cola=cola; 
     }
     
-    public RequestServerUDP(ColaUDP cola, Estado estado) {
+    public RequestServerUDP(ColaUDP cola, Estado estado, DatagramSocket socket) {
         this.cola = cola; 
         this.estado =  estado;
+        this.socket = socket;
     }
 
     public void setSocket(DatagramSocket socket) {
@@ -55,39 +57,45 @@ final class RequestServerUDP implements Runnable {
                 socket=cola.get();
             }
             try{
-                 byte [] datos_entrada = new byte[1024];
-                 String respuesta = "";
-                 String leido = "";
-                 String leido_string = "";
-                 
-                 String request_line = "";
-                 StringTokenizer separador = null;
-                 
-                 DatagramSocket socket;
-                 //recibiendo
-                 DatagramPacket entrada = new DatagramPacket(datos_entrada, datos_entrada.length);
-                 
-                 socket = cola.get();
-                 socket.receive(entrada);
-                 
-                 //mandar a actualizar estado aqui
-                 System.out.println("Conexión Cliente establecida. El cliente dice: "+new String(datos_entrada).trim()+"\n");
-                 
-                 //respuesta
-                 int puerto = entrada.getPort();                 
-                 InetAddress address = entrada.getAddress();
-                 
-                 byte[] datos_salida = new byte[1024];
-                 
-                 //mandar estado unificado aqui
-                 String mensaje_salida = "putos";
-                 
-                 
-                 datos_salida = mensaje_salida.getBytes();
-                 
-                 DatagramPacket salida = new DatagramPacket(datos_salida, mensaje_salida.length(), address, puerto);
-                 socket.send(salida);
-                                  
+                while(true){
+                    System.out.println("chambeando");
+                    byte [] datos_entrada = new byte[1024];
+                    String respuesta = "";
+                    String leido = "";
+                    String leido_string = "";
+
+                    String request_line = "";
+                    StringTokenizer separador = null;
+
+                    DatagramSocket socket = this.socket;
+                    //recibiendo
+                    DatagramPacket entrada = new DatagramPacket(datos_entrada, datos_entrada.length);
+
+                    //socket = cola.get();
+                    
+                    
+                    socket.receive(entrada);
+                       System.out.println("hola");
+                    //mandar a actualizar estado aqui
+                    
+                    int puerto = entrada.getPort();                 
+                    InetAddress address = entrada.getAddress();
+                    System.out.println("Conexión establecida. El cliente "+address+", puerto "+puerto+" dice: "+new String(datos_entrada).trim()+"hora: "+Calendar.getInstance().getTime()+"\n");
+
+                    //respuesta
+                    
+
+                    byte[] datos_salida = new byte[1024];
+
+                    //mandar estado unificado aqui
+                    String mensaje_salida = "putos";
+
+
+                    datos_salida = mensaje_salida.getBytes();
+
+                    DatagramPacket salida = new DatagramPacket(datos_salida, mensaje_salida.length(), address, puerto);
+                    socket.send(salida);
+                }
                  
                  
              }catch(Exception e){
