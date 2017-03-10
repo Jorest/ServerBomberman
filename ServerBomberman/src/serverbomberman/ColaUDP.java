@@ -46,6 +46,16 @@ public class ColaUDP {
     
     //donde la magia ocurre
     public void updateEstado(EstadoClient estado_cliente){
+        Bomba[] bombasEstado=estado.getBombas();
+        Bomba[] bombasEstadoN=estado_cliente.getBombas();
+        Bomba[] bombasUnion=new Bomba[bombasEstado.length+bombasEstadoN.length];
+        for(int i=0; i<bombasEstado.length;i++){
+            bombasUnion[i]=bombasEstado[i];
+        }
+        for(int i=bombasEstado.length-1; i<bombasEstadoN.length;i++){
+            bombasUnion[i]=bombasEstadoN[i];
+        }
+        estado.setBombas(bombasUnion);
         //this.estado.setBombas(estado_cliente.getBombas());
         int id_jug = estado_cliente.getJugador().getId();
         //System.out.println("ID: "+id_jug);
