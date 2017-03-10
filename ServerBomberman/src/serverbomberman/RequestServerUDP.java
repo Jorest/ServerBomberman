@@ -47,9 +47,12 @@ final class RequestServerUDP implements Runnable {
     }
     
     public static String getCurrentTimeStamp() {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
         Date now = new Date();
-        String strDate = sdfDate.format(now);
+        String strDate = sdf.format(now);
         return strDate;
     }
     

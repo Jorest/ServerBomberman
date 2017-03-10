@@ -48,7 +48,7 @@ public class ColaUDP {
     public void updateEstado(EstadoClient estado_cliente){
         //this.estado.setBombas(estado_cliente.getBombas());
         int id_jug = estado_cliente.getJugador().getId();
-        
+        //System.out.println("ID: "+id_jug);
         switch (id_jug){
             case 1:
                 this.estado.jugadores[0] = estado_cliente.getJugador();
